@@ -1,0 +1,37 @@
+March 2023
+<span class="desc">
+  With Angular Material CDK Drag and Drop and VMWare Clarity
+</span>
+<table class="table table-compact">
+  <tbody cdkDropListGroup>
+    <tr>
+      <th>SUN</th>
+      <th>MON</th>
+      <th>TUE</th>
+      <th>WED</th>
+      <th>THU</th>
+      <th>FRI</th>
+      <th>SAT</th>
+    </tr>
+    <tr *ngFor="let week of weeks">
+      <td
+        class="left"
+        *ngFor="let day of days"
+        cdkDropList
+        [cdkDropListData]="entryState[week][day]"
+        (click)="newEntry(day, week)"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div>{{dayLabels[week][day]}}</div>
+        <app-entry
+          cdkDrag
+          cdkDragHandle
+          *ngFor="let state of entryState[week][day]"
+          [state]="state"
+          (deleteMe)="deleteEntry(day, week, state)"
+          (click)="($event).stopPropagation()"
+        >DragItem</app-entry>
+      </td>
+    </tr>
+  </tbody>
+</table>
